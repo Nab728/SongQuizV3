@@ -273,8 +273,8 @@ function nextSong()
     document.querySelector(".score").innerHTML = "Player 1: " + p1Score + "&nbsp&nbsp" + "Player 2: " + p2Score;
     
     // show the answer
-    document.querySelector("#answer").innerHTML = "Answer: " + title.trim();
-    document.querySelector("#answer2").innerHTML = "Artist: " + artist.trim();
+    document.querySelector("#titleAns").innerHTML = "Answer: " + title.trim();
+    document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
 
     //show play button again
     document.getElementById('play').style.display = 'block';
