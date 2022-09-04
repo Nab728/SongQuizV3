@@ -81,9 +81,8 @@ function formatString(s)
 {
     if(s != undefined)
     {
-        const str = "abc's test#s";
         //regex to replace all none letter based characters to "" 
-        str.replace(/[^a-zA-Z ]/g, "");
+        s.replace(/[^a-zA-Z ]/g, "");
     }
     return s;
 }
