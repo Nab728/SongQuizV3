@@ -61,12 +61,12 @@ document.addEventListener('DOMContentLoaded', function()
 }); 
 function checkAnswer(pTitle, pArtist)
 {
-    if (pTitle.toLowerCase().trim() == title.toLowerCase().trim())
+    if (pTitle.toLowerCase().trim() == title.toLowerCase())
     {
         //if else statement
         playerOneTurn ? p1Score++ : p2Score++;
     }
-    if(pArtist.toLowerCase().trim() == artist.toLowerCase().trim())
+    if(pArtist.toLowerCase().trim() == artist.toLowerCase())
     {
         playerOneTurn ? p1Score++ : p2Score++;
     } 
@@ -204,11 +204,24 @@ function callApi(str, callback)
     //turns it to what the actual search query is
     str = encodeURIComponent(str);
     xhr = new XMLHttpRequest();
-    xhr.open("GET", 'https://api.spotify.com/v1/search?q=' + str + '&type=track&limit=5', true);
+    xhr.open("GET", 'https://api.spotify.com/v1/search?q=' + str + '&type=track', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access_token")); 
     xhr.onload = callback;
     xhr.send();
+}
+function pickCorrectTrack(list)
+{
+    let arr = [];
+    //set answer of artist to be the most popular song
+    for (let i = 0; i < list.length; i++)
+    {
+        arr.push(list[i]["popularity"]);
+    }
+    //find max popularity of the 5 tracks returned
+    let ans = (max) => max == Math.max.apply(Math, arr);
+    let index = arr.findIndex(ans);
+    return index;
 }
 function processRequest() 
 {  
@@ -218,16 +231,8 @@ function processRequest()
         isClientWorking = true;
         var response = JSON.parse(xhr.responseText);
         var result = response["tracks"]["items"];
-        let arr = [];
-        //set answer of artist to be the most popular song
-        for (let i = 0; i < response["tracks"]["items"].length; i++)
-        {
-            arr.push(response["tracks"]["items"][i]["popularity"]);
-        }
-        //find max popularity of the 5 tracks returned
-        let ans = (max) => max == Math.max.apply(Math, arr);
-        let index = arr.findIndex(ans);
-
+        console.log(result);
+        var index = pickCorrectTrack(result);
         title  = formatString(result[index]["name"]);
         artist = formatString(result[index]["artists"][0]["name"]);
     }
@@ -253,8 +258,12 @@ function formatString(s)
 {
     if(s != undefined)
     {
-        
-        s = s.replace(/[^a-zA-Z ]/g, "");
+        //removes the part after the dash
+        s = s.split("-")[0];
+        //removes any non letter character (other than ' and !) and anything in between parentheses
+        s = s.replace(/(\([^)]*\))|([^a-zA-Z0-9'! ])/g, "").trim();
+        //removes multiple spaces or tabs
+        s = s.replace(/\s\s+/g, ' ');
     }
     return s;
 }
