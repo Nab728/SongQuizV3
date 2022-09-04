@@ -48,13 +48,10 @@ document.addEventListener('DOMContentLoaded', function()
     document.querySelector("#form").addEventListener('submit', function(e) 
     {
         //get user's answers
-        let titleAns = document.querySelector("#songTitle").value;
-        let artistAns = document.querySelector("#songArtist").value;
-        //format th correct answer
-        title = formatString(title);
-        artist = formatString(artist);
+        let pTitle = document.querySelector("#songTitle").value;
+        let pArtist = document.querySelector("#songArtist").value;
         //add score to the corresponding player
-        addScore(titleAns, title, artistAns, artist);
+        checkAnswer(pTitle, pArtist);
         //go to next song
         nextSong();
         //prevent default submit button action
@@ -62,29 +59,20 @@ document.addEventListener('DOMContentLoaded', function()
     });
    
 }); 
-function addScore(title, titleAns, artistAns, artist)
+function checkAnswer(pTitle, pArtist)
 {
-    if (title.toLowerCase().trim() == titleAns.toLowerCase().trim())
+    if (pTitle.toLowerCase().trim() == title.toLowerCase().trim())
     {
         //if else statement
         playerOneTurn ? p1Score++ : p2Score++;
     }
-    if(artistAns.toLowerCase().trim() == artist.toLowerCase().trim())
+    if(pArtist.toLowerCase().trim() == artist.toLowerCase().trim())
     {
         playerOneTurn ? p1Score++ : p2Score++;
     } 
     //make the input field empty 
     document.getElementById("songTitle").value = ""; 
     document.getElementById("songArtist").value = "";
-}
-function formatString(s)
-{
-    if(s != undefined)
-    {
-        //regex to replace all none letter based characters to "" 
-        s = s.replace(/[^a-zA-Z ]/g, "");
-    }
-    return s;
 }
 //first step is to get the client_id and client_secret from the user
 function requestAuthorization()
@@ -240,8 +228,8 @@ function processRequest()
         let ans = (max) => max == Math.max.apply(Math, arr);
         let index = arr.findIndex(ans);
 
-        title  = result[index]["name"];
-        artist = result[index]["artists"][0]["name"];
+        title  = formatString(result[index]["name"]);
+        artist = formatString(result[index]["artists"][0]["name"]);
     }
     else if (xhr.status == 401)
     {
@@ -253,11 +241,22 @@ function processRequest()
         }
         else
         {
+            //redirect user to homescreen
             document.getElementById("gamePage").style.display = 'none';
             document.getElementById("startPage").style.display = 'flex';
             isClientWorking = false;
         }
     }
+}
+//regex to replace all none letter based characters to "" 
+function formatString(s)
+{
+    if(s != undefined)
+    {
+        
+        s = s.replace(/[^a-zA-Z ]/g, "");
+    }
+    return s;
 }
 //main function to play the next song
 function nextSong()
@@ -268,10 +267,11 @@ function nextSong()
     //show player turn
     playerOneTurn = !playerOneTurn;
     let turn = checkTurn();
+    //display score
     document.querySelector(".turn").innerHTML = "Player " + turn + " Turn"; 
     document.querySelector(".score").innerHTML = "Player 1: " + p1Score + "&nbsp&nbsp" + "Player 2: " + p2Score;
     
-    // show the answer
+    //format the correct answer
     document.querySelector("#titleAns").innerHTML = "Answer: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
 
