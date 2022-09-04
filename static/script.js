@@ -82,7 +82,7 @@ function formatString(s)
     if(s != undefined)
     {
         //regex to replace all none letter based characters to "" 
-        s.replace(/[^a-zA-Z ]/g, "");
+        s = s.replace(/[^a-zA-Z ]/g, "");
     }
     return s;
 }
