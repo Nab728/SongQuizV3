@@ -31,7 +31,7 @@ var player;
 var isWorking = false;
 
 //url change to your domain of the website
-var redirect_uri = "https://nab728.github.io/SongQuizV3/"; //switch to the html page you are 
+var redirect_uri = "http://127.0.0.1:5501/SongQuizV3/templates/index.html"; //switch to the html page you are 
 //client criendentals from spotify api
 var client_id;
 var client_secret;
@@ -225,6 +225,7 @@ function findRightArtist(list, title)
            return orgName;
         }
     }
+    return list[0]["artists"][0]["name"];
 }
 function processRequest() 
 {  
@@ -240,7 +241,8 @@ function processRequest()
         let rightArtist = findRightArtist(result, songs[songIndex].snippet.title);
         //for the most part the title is always correct but the artist isn't 
         //so by using findRightArtist it results in sometimes mismatched picking of what item to choose for each answer.
-        title  = formatString(result[0]["name"]);
+        //first answer seems to always be the album name
+        title  = formatString(result[1]["name"]);
         artist = formatString(rightArtist); 
     }
     else if (xhr.status == 401)
@@ -267,12 +269,13 @@ function formatString(s)
     if(s != undefined)
     {
         //removes the part after the dash
+        console.log(s);
         s = s.split("-")[0];
         //turns accent mark letters to regular latin characters
         //normalize turns accent marks to latin characters in unicode and replace removes the diacritic marks
         s = s.normalize("NFD").replace(/\p{Diacritic}/gu, "");
         //removes any non letter character (other than '(There's) and !(P!nk)and + (Ariande Grande 34+35)) and anything in between parentheses
-        s = s.replace(/(\([^)]*\))|([^a-zA-Z0-9'!+$ ])/g, "").trim();
+        s = s.replace(/(\[[^\]]*])|(\([^)]*\))|([^a-zA-Z0-9'!+$ ])/g, "").trim();
         //removes multiple spaces or tabs
         s = s.replace(/\s\s+/g, ' ');
     }
@@ -378,7 +381,7 @@ function createPlayer(id, start)
         {
             height: 0,
             width: 0,
-            videoId: id,
+            videoId: "T3vL80GTbQ0",
             playerVars: 
             {
                 //no full scrren
