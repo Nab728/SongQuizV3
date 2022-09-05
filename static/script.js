@@ -377,7 +377,7 @@ function createPlayer(id, start)
             videoId: id,
             playerVars: 
             {
-                //no full scrren
+                //disable full scrren
                 'fs' : 0,
                 'controls': 0,
                 'playsinline': 1,
