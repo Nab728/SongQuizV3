@@ -267,7 +267,7 @@ function nextSong()
     document.querySelector("#p2score").innerHTML = "Player 2 : " + p2Score;
 
     //format the correct answer
-    document.querySelector("#titleAns").innerHTML = "Answer: " + title.trim();
+    document.querySelector("#titleAns").innerHTML = "Title: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
 
     //show play button again
