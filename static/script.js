@@ -136,7 +136,7 @@ function getCode()
 {
     let code = null;
     const queryString = window.location.search;
-    if (queryString.length > 0)
+    if ( queryString.length > 0 )
     {
         const urlParams = new URLSearchParams(queryString);
         code = urlParams.get('code')
@@ -210,19 +210,6 @@ function callApi(str, callback)
     xhr.onload = callback;
     xhr.send();
 }
-function pickCorrectTrack(list)
-{
-    let arr = [];
-    //set answer of artist to be the most popular song
-    for (let i = 0; i < list.length; i++)
-    {
-        arr.push(list[i]["popularity"]);
-    }
-    //find max popularity of the 5 tracks returned
-    let ans = (max) => max == Math.max.apply(Math, arr);
-    let index = arr.findIndex(ans);
-    return index;
-}
 function processRequest() 
 {  
     if (xhr.readyState == 4 && xhr.status == 200) 
@@ -230,10 +217,10 @@ function processRequest()
         //variable that checks if the xmlhttprequest was successful
         isClientWorking = true;
         var response = JSON.parse(xhr.responseText);
-        var result = response["tracks"]["items"];
-        var index = pickCorrectTrack(result);
-        title  = formatString(result[index]["name"]);
-        artist = formatString(result[index]["artists"][0]["name"]);
+        //select the first result (I've tested the most popular result and sometimes it failed)
+        var result = response["tracks"]["items"][0];
+        title  = formatString(result["name"]);
+        artist = formatString(result["artists"][0]["name"]);
     }
     else if (xhr.status == 401)
     {
@@ -242,7 +229,7 @@ function processRequest()
             refreshAccessToken();
         }
         else
-        { 
+        {
             alert("access token has expired. Returning to home page.");
             //redirect user to homescreen
             document.getElementById("gamePage").style.display = 'none';
@@ -259,7 +246,7 @@ function formatString(s)
         //removes the part after the dash
         s = s.split("-")[0];
         //removes any non letter character (other than ' and !) and anything in between parentheses
-        s = s.replace(/(\([^)]*\))|([^a-zA-Z0-9'! ])/g, "").trim();
+        s = s.replace(/(\([^)]*\))|([^a-zA-Z0-9'!+ ])/g, "").trim();
         //removes multiple spaces or tabs
         s = s.replace(/\s\s+/g, ' ');
     }
@@ -274,12 +261,11 @@ function nextSong()
     //show player turn
     playerOneTurn = !playerOneTurn;
     let turn = checkTurn();
-    
     //display score
     document.querySelector(".turn").innerHTML = "Player " + turn + " Turn"; 
     document.querySelector(".score").innerHTML = "Player 1: " + p1Score + "&nbsp&nbsp" + "Player 2: " + p2Score;
     
-    //show the correct answer 
+    //format the correct answer
     document.querySelector("#titleAns").innerHTML = "Answer: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
 
@@ -343,6 +329,8 @@ function chooseSong()
         // removes first element from the array
         prevSongs.shift();
     }
+    console.log(prevSongs);
+    console.log("Index chosen is " + index);
     return index;
 }
 // have to name it this way and idk if it actually matters too much 
