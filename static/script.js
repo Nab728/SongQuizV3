@@ -243,10 +243,6 @@ function processRequest()
     }
     else if (xhr.status == 401)
     {
-        console.log("id is " + client_id);
-        console.log("secret is " + client_secret);
-        console.log("refresh token is " + refresh_token);
-        console.log("access token is " + access_token);
         if (client_id != "" && client_secret != "" && refresh_token != "" && refresh_token != null)
         {
             refreshAccessToken();
@@ -357,8 +353,6 @@ function chooseSong()
     {
         prevSongs.shift();
     }
-    console.log(prevSongs);
-    console.log("Index chosen is " + index);
     return index;
 }
 // have to name it this way and idk if it actually matters too much 
@@ -433,6 +427,5 @@ function stopVideo()
 function replayVideo()
 { 
     var videoPlayer = document.querySelector('#video');
-    console.log("Hi");
     videoPlayer.src = videoPlayer.src;
 }
