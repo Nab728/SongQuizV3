@@ -31,7 +31,7 @@ var player;
 var isWorking = false;
 
 //url change to your domain of the website
-var redirect_uri = "https://nab728.github.io/SongQuizV3/"; //switch to the html page you are 
+var redirect_uri = "http://127.0.0.1:5501/SongQuizV3/templates/index.html"; //switch to the html page you are 
 //client criendentals from spotify api
 var client_id;
 var client_secret;
@@ -263,8 +263,9 @@ function nextSong()
     let turn = checkTurn();
     //display score
     document.querySelector(".turn").innerHTML = "Player " + turn + " Turn"; 
-    document.querySelector(".score").innerHTML = "Player 1: " + p1Score + "&nbsp&nbsp" + "Player 2: " + p2Score;
-    
+    document.querySelector("#p1score").innerHTML = "Player 1 : " + p1Score;
+    document.querySelector("#p2score").innerHTML = "Player 2 : " + p2Score;
+
     //format the correct answer
     document.querySelector("#titleAns").innerHTML = "Answer: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
