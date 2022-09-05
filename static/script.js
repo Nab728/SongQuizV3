@@ -245,10 +245,6 @@ function processRequest()
     }
     else if (xhr.status == 401)
     {
-        console.log("id is " + client_id);
-        console.log("secret is " + client_secret);
-        console.log("refresh token is " + refresh_token);
-        console.log("access token is " + access_token);
         //refresh_token is the only one not saved to the variable but localStorage still saves it (since it has no expiration)
         //additionally it isn't deleted even in future sessions if the page was closed
         if (localStorage.getItem("refresh_token") != null)
