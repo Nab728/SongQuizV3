@@ -378,7 +378,7 @@ function createPlayer(id, start)
         {
             height: 0,
             width: 0,
-            videoId: "4NRXx6U8ABQ",
+            videoId: id,
             playerVars: 
             {
                 //no full scrren
