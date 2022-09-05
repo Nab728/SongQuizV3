@@ -299,6 +299,7 @@ function nextSong()
     //make submit button reaapear
     setTimeout(function()
     {
+        document.getElementById('play').style.display = 'block';
         document.getElementById("submit").style.display = "block";
         document.getElementById("replay").style.display = "block";
         document.getElementById("next").style.display = "block";
@@ -334,7 +335,6 @@ function startSongPlayer()
     start = Math.floor(Math.random() * (150 - 20 + 1)) + 20;
     if(isClientWorking)
     {
-        document.getElementById('play').style.display = 'block';
         createPlayer(songs[songIndex].snippet.resourceId.videoId, start);
     }
 }
