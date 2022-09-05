@@ -334,6 +334,7 @@ function startSongPlayer()
     start = Math.floor(Math.random() * (150 - 20 + 1)) + 20;
     if(isClientWorking)
     {
+        document.getElementById('play').style.display = 'block';
         createPlayer(songs[songIndex].snippet.resourceId.videoId, start);
     }
 }
@@ -405,7 +406,6 @@ function playVideo()
 //sometimes when it autoplays without user input it should call the playVideo function
 function onPlayerReady(event) 
 {   
-    document.getElementById('play').style.display = 'block';
     playVideo();
 }
 //if playing make the play button disappear and set timer for 10 seconds
