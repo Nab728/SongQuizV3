@@ -210,21 +210,44 @@ function callApi(str, callback)
     xhr.onload = callback;
     xhr.send();
 }
+//find artist based on if the artist is listed in the youtube video title (requirements: artist is on youtube title)
+function findRightArtist(list, title)
+{
+    for (let i = 0; i < list.length; i++)
+    {
+        //songs have mutlipe aritsts sometimes but we want the first result
+        let name = list[i]["artists"][0]["name"].toLowerCase().trim();
+        if (title.toLowerCase().trim().includes(name))
+        { 
+           return name;
+        }
+    }
+}
 function processRequest() 
 {  
     if (xhr.readyState == 4 && xhr.status == 200) 
     {
+        
         //variable that checks if the xmlhttprequest was successful
         isClientWorking = true;
         var response = JSON.parse(xhr.responseText);
-        //select the first result (I've tested the most popular result and sometimes it failed)
-        var result = response["tracks"]["items"][0];
-        title  = formatString(result["name"]);
-        artist = formatString(result["artists"][0]["name"]);
+        var result = response["tracks"]["items"];
+        //let test = "Harry Styles - Sign of the Times (Official Video)"
+        //select the first result (I've tested the most popular result and sometimes it failed also the first result failed)
+        //ex: Blinding Lights (doesn't work with the most popular result) and Bad Blood (doesn't work with first result) from the youtube playlist
+        let artist = findRightArtist(result, songs[songIndex].snippet.title);
+        //for the most part the title is always correct but the artist isn't 
+        //so by using findRightArtist it results in sometimes mismatched picking of what item to choose for each answer.
+        title  = formatString(result[0]["name"]);
+        artist = formatString(artist); 
     }
     else if (xhr.status == 401)
     {
-        if (client_id != "" && client_secret != "" && refresh_token != "" && refresh_token != undefined)
+        console.log("id is " + client_id);
+        console.log("secret is " + client_secret);
+        console.log("refresh token is " + refresh_token);
+        console.log("access token is " + access_token);
+        if (client_id != "" && client_secret != "" && refresh_token != "" && refresh_token != null)
         {
             refreshAccessToken();
         }
@@ -245,7 +268,7 @@ function formatString(s)
     {
         //removes the part after the dash
         s = s.split("-")[0];
-        //removes any non letter character (other than ' and !) and anything in between parentheses
+        //removes any non letter character (other than '(There's) and !(P!nk)and + (Ariande Grande 34+35)) and anything in between parentheses
         s = s.replace(/(\([^)]*\))|([^a-zA-Z0-9'!+ ])/g, "").trim();
         //removes multiple spaces or tabs
         s = s.replace(/\s\s+/g, ' ');
@@ -293,7 +316,7 @@ function nextSong()
         document.getElementById("titleAns").innerHTML = "";
         document.getElementById("artistAns").innerHTML = "";
     }, 2000);
-    // console.log(songs[songIndex].snippet.title);
+
 }
 function checkTurn()
 {
@@ -306,7 +329,10 @@ function checkTurn()
 function startSongPlayer()
 { 
     songIndex = chooseSong();
-    checkTitle(songs[songIndex].snippet.title);
+    //test title make sure to change spotify findRightArtist
+    //let title = "Harry Styles - Sign of the Times (Official Video)";
+    let title = songs[songIndex].snippet.title;
+    checkTitle(title);
     //start is undefined in the beginning for some reason but it still works so ig that's ok
     //0 to length of the song - 20 seconds (so we don't play the end of the song)
     start = Math.floor(Math.random() * (150 - 20 + 1)) + 20;
@@ -352,7 +378,7 @@ function createPlayer(id, start)
         {
             height: 0,
             width: 0,
-            videoId: id,
+            videoId: "4NRXx6U8ABQ",
             playerVars: 
             {
                 //no full scrren
