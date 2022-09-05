@@ -31,7 +31,7 @@ var player;
 var isWorking = false;
 
 //url change to your domain of the website
-var redirect_uri = "nab728.github.io/songquizv3/"; //switch to the html page you are 
+var redirect_uri = "http://127.0.0.1:5501/SongQuizV3/templates/index.html"; //switch to the html page you are 
 //client criendentals from spotify api
 var client_id;
 var client_secret;
@@ -243,10 +243,10 @@ function processRequest()
     }
     else if (xhr.status == 401)
     {
-        //console.log("id is " + client_id);
-        //console.log("secret is " + client_secret);
-        //console.log("refresh token is " + refresh_token);
-        //console.log("access token is " + access_token);
+        console.log("id is " + client_id);
+        console.log("secret is " + client_secret);
+        console.log("refresh token is " + refresh_token);
+        console.log("access token is " + access_token);
         if (client_id != "" && client_secret != "" && refresh_token != "" && refresh_token != null)
         {
             refreshAccessToken();
@@ -268,8 +268,11 @@ function formatString(s)
     {
         //removes the part after the dash
         s = s.split("-")[0];
+        //turns accent mark letters to regular latin characters
+        //normalize turns accent marks to latin characters in unicode and replace removes the diacritic marks
+        s = s.normalize("NFD").replace(/\p{Diacritic}/gu, "");
         //removes any non letter character (other than '(There's) and !(P!nk)and + (Ariande Grande 34+35)) and anything in between parentheses
-        s = s.replace(/(\([^)]*\))|([^a-zA-Z0-9'!+ ])/g, "").trim();
+        s = s.replace(/(\([^)]*\))|([^a-zA-Z0-9'!+$ ])/g, "").trim();
         //removes multiple spaces or tabs
         s = s.replace(/\s\s+/g, ' ');
     }
@@ -354,8 +357,8 @@ function chooseSong()
     {
         prevSongs.shift();
     }
-    //console.log(prevSongs);
-    //console.log("Index chosen is " + index);
+    console.log(prevSongs);
+    console.log("Index chosen is " + index);
     return index;
 }
 // have to name it this way and idk if it actually matters too much 
@@ -376,7 +379,7 @@ function createPlayer(id, start)
         {
             height: 0,
             width: 0,
-            videoId: id,
+            videoId: "00NgUctWoLQ",
             playerVars: 
             {
                 //no full scrren
@@ -430,5 +433,6 @@ function stopVideo()
 function replayVideo()
 { 
     var videoPlayer = document.querySelector('#video');
+    console.log("Hi");
     videoPlayer.src = videoPlayer.src;
 }
