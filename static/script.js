@@ -1,4 +1,3 @@
-//other variables needed
 //songs is the variable to hode the json data
 let songs;
 let songIndex = 0;
