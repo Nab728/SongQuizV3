@@ -292,20 +292,21 @@ function nextSong()
     document.querySelector("#titleAns").innerHTML = "Title: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
 
-   
+    //show play button
+    document.getElementById('play').style.display = 'block';
     
     //hide all buttons essentially
     document.getElementById("submit").style.display = "none";
     document.getElementById("replay").style.display = "none";
     document.getElementById("next").style.display = "none";
-    document.getElementById('play').style.display = 'none';
+    
     //make submit button reaapear
     setTimeout(function()
     {
         document.getElementById("submit").style.display = "block";
         document.getElementById("replay").style.display = "block";
         document.getElementById("next").style.display = "block";
-        document.getElementById('play').style.display = 'block';
+       
     }, 2000);
 
     //set the input field to null values
