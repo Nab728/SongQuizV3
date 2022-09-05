@@ -27,8 +27,9 @@
             <div class="d-flex justify-content-center align-items-center score-container">
                 <p class="turn">Player 1 Turn</p> 
             </div>
-            <div class="d-flex justify-content-center align-items-center score-container">
-                <p class="score">Player 1 : 0&nbsp&nbspPlayer 2: 0</p> 
+            <div class="d-flex flex-column justify-content-center align-items-center score-container">
+                <p id="p1score">Player 1 : 0</p> 
+                <p id="p2score">Player 2 : 0</p> 
             </div>
             <div class="d-flex justify-content-center align-items-center answer-container">
                 <p id="titleAns"></p>
@@ -38,14 +39,14 @@
             </div>
             <!-- Video here-->
             <div id="video"></div>
-            <div class="d-flex justify-content-center align-items-center container">
+            <div class="d-flex justify-content-center align-items-center">
                 <form id="form" onsubmit="return false;">
                     <p><input type="text" id="songTitle" name="songTitle" autocomplete="off" placeholder="Song Title" required></p>
                     <p><input type="text" id="songArtist" name="artist" autocomplete="off" placeholder="Artist" required></p>
-                    <p><input id="submit" type="submit" value="Submit"></p>
-                    <p><input class="btn btn-primary" id="play" type="button" onclick="playVideo()" value="Play Song"></p>
-                    <p><input class="btn btn-primary" type="button" onclick="replay()" value="Replay Song"></p>
-                    <p><input class="btn btn-primary" type="button" onclick="nextSong()" value="Next Song"></p>
+                    <p><input class="btn btn-primary"id="submit" type="submit" value="Submit"></p>
+                    <p><input class="btn btn-secondary btn-sm" id="play" type="button" onclick="playVideo()" value="Play Song"></p>
+                    <p><input class="btn btn-secondary btn-sm" type="button" onclick="replay()" value="Replay Song"></p>
+                    <p><input class="btn btn-secondary btn-sm" type="button" onclick="nextSong()" value="Next Song"></p>
                     
                 </form>
             </div>
