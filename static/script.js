@@ -31,7 +31,7 @@ var player;
 var isWorking = false;
 
 //url change to your domain of the website
-var redirect_uri = "https://nab728.github.io/SongQuizV3/"; //switch to the html page you are 
+var redirect_uri = "nab728.github.io/songquizv3/"; //switch to the html page you are 
 //client criendentals from spotify api
 var client_id;
 var client_secret;
@@ -216,10 +216,11 @@ function findRightArtist(list, title)
     for (let i = 0; i < list.length; i++)
     {
         //songs have mutlipe aritsts sometimes but we want the first result
-        let name = list[i]["artists"][0]["name"].toLowerCase().trim();
+        let orgName = list[i]["artists"][0]["name"];
+        let name = orgName.toLowerCase().trim();
         if (title.toLowerCase().trim().includes(name))
         { 
-           return name;
+           return orgName;
         }
     }
 }
@@ -232,21 +233,20 @@ function processRequest()
         isClientWorking = true;
         var response = JSON.parse(xhr.responseText);
         var result = response["tracks"]["items"];
-        //let test = "Harry Styles - Sign of the Times (Official Video)"
         //select the first result (I've tested the most popular result and sometimes it failed also the first result failed)
         //ex: Blinding Lights (doesn't work with the most popular result) and Bad Blood (doesn't work with first result) from the youtube playlist
-        let artist = findRightArtist(result, songs[songIndex].snippet.title);
+        let rightArtist = findRightArtist(result, songs[songIndex].snippet.title);
         //for the most part the title is always correct but the artist isn't 
         //so by using findRightArtist it results in sometimes mismatched picking of what item to choose for each answer.
         title  = formatString(result[0]["name"]);
-        artist = formatString(artist); 
+        artist = formatString(rightArtist); 
     }
     else if (xhr.status == 401)
     {
-        console.log("id is " + client_id);
-        console.log("secret is " + client_secret);
-        console.log("refresh token is " + refresh_token);
-        console.log("access token is " + access_token);
+        //console.log("id is " + client_id);
+        //console.log("secret is " + client_secret);
+        //console.log("refresh token is " + refresh_token);
+        //console.log("access token is " + access_token);
         if (client_id != "" && client_secret != "" && refresh_token != "" && refresh_token != null)
         {
             refreshAccessToken();
@@ -293,17 +293,20 @@ function nextSong()
     document.querySelector("#titleAns").innerHTML = "Title: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
 
-    //show play button again
-    document.getElementById('play').style.display = 'block';
+   
     
-    //hide the submit button
+    //hide all buttons essentially
     document.getElementById("submit").style.display = "none";
-
+    document.getElementById("replay").style.display = "none";
+    document.getElementById("next").style.display = "none";
+    document.getElementById('play').style.display = 'none';
     //make submit button reaapear
     setTimeout(function()
     {
         document.getElementById("submit").style.display = "block";
-        
+        document.getElementById("replay").style.display = "block";
+        document.getElementById("next").style.display = "block";
+        document.getElementById('play').style.display = 'block';
     }, 2000);
 
     //set the input field to null values
@@ -329,11 +332,8 @@ function checkTurn()
 function startSongPlayer()
 { 
     songIndex = chooseSong();
-    //test title make sure to change spotify findRightArtist
-    //let title = "Harry Styles - Sign of the Times (Official Video)";
     let title = songs[songIndex].snippet.title;
     checkTitle(title);
-    //start is undefined in the beginning for some reason but it still works so ig that's ok
     //0 to length of the song - 20 seconds (so we don't play the end of the song)
     start = Math.floor(Math.random() * (150 - 20 + 1)) + 20;
     if(isClientWorking)
@@ -348,16 +348,14 @@ function chooseSong()
     while (prevSongs.includes(index))
     {
         index = Math.floor(Math.random() * songs.length);
-        //console.log("While loop song chosen is " + index);
     }
     prevSongs.push(index);
     if (prevSongs.length >= 10)
     {
-        // removes first element from the array
         prevSongs.shift();
     }
-    console.log(prevSongs);
-    console.log("Index chosen is " + index);
+    //console.log(prevSongs);
+    //console.log("Index chosen is " + index);
     return index;
 }
 // have to name it this way and idk if it actually matters too much 
@@ -408,7 +406,6 @@ function createPlayer(id, start)
 //the function the button calls  
 function playVideo()
 {
-    //using seekTo is the same essentially but makes replay harder to use
     player.playVideo();
 }
 //sometimes when it autoplays without user input it should call the playVideo function
@@ -416,7 +413,6 @@ function onPlayerReady(event)
 {   
     playVideo();
 }
-
 //if playing make the play button disappear and set timer for 10 seconds
 function onPlayerStateChange(event) {
     if(event.data == YT.PlayerState.PLAYING)
@@ -431,7 +427,7 @@ function stopVideo()
     console.log("I have ended");
     player.stopVideo();
 }
-function replay()
+function replayVideo()
 { 
     var videoPlayer = document.querySelector('#video');
     videoPlayer.src = videoPlayer.src;
