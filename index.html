@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
         <script src="static/script.js"></script>
     </head>
     <body onload="onPageLoad()">
@@ -45,9 +45,8 @@
                     <p><input type="text" id="songArtist" name="artist" autocomplete="off" placeholder="Artist" required></p>
                     <p><input class="btn btn-primary"id="submit" type="submit" value="Submit"></p>
                     <p><input class="btn btn-secondary btn-sm" id="play" type="button" onclick="playVideo()" value="Play Song"></p>
-                    <p><input class="btn btn-secondary btn-sm" type="button" onclick="replay()" value="Replay Song"></p>
-                    <p><input class="btn btn-secondary btn-sm" type="button" onclick="nextSong()" value="Next Song"></p>
-                    
+                    <p><input class="btn btn-secondary btn-sm" id="replay" type="button" onclick="replayVideo()" value="Replay Song"></p>
+                    <p><input class="btn btn-secondary btn-sm" id="next" type="button" onclick="nextSong()" value="Next Song"></p>
                 </form>
             </div>
         </div>
