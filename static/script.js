@@ -291,9 +291,6 @@ function nextSong()
     //format the correct answer
     document.querySelector("#titleAns").innerHTML = "Title: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
-
-    //show play button
-    document.getElementById('play').style.display = 'block';
     
     //hide all buttons essentially
     document.getElementById("submit").style.display = "none";
@@ -409,6 +406,7 @@ function playVideo()
 //sometimes when it autoplays without user input it should call the playVideo function
 function onPlayerReady(event) 
 {   
+    document.getElementById('play').style.display = 'block';
     playVideo();
 }
 //if playing make the play button disappear and set timer for 10 seconds
