@@ -243,7 +243,7 @@ function processRequest()
     }
     else if (xhr.status == 401)
     {
-        if (client_id != "" && client_secret != "" && refresh_token != "" && refresh_token != null)
+        if (localStorage.getItem("refresh_token") != null)
         {
             refreshAccessToken();
         }
