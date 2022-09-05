@@ -1,3 +1,4 @@
+//other variables needed
 //songs is the variable to hode the json data
 let songs;
 let songIndex = 0;
@@ -167,11 +168,13 @@ function handleAuthorizationResponse()
     if (this.status == 200)
     {
         var data = JSON.parse(this.responseText);
-        if ( data.access_token != undefined ){
+        if (data.access_token != undefined)
+        {
             access_token = data.access_token;
             localStorage.setItem("access_token", access_token);
         }
-        if ( data.refresh_token  != undefined ){
+        if (data.refresh_token  != undefined)
+        {
             refresh_token = data.refresh_token;
             localStorage.setItem("refresh_token", refresh_token);
         }
@@ -242,6 +245,12 @@ function processRequest()
     }
     else if (xhr.status == 401)
     {
+        console.log("id is " + client_id);
+        console.log("secret is " + client_secret);
+        console.log("refresh token is " + refresh_token);
+        console.log("access token is " + access_token);
+        //refresh_token is the only one not saved to the variable but localStorage still saves it (since it has no expiration)
+        //additionally it isn't deleted even in future sessions if the page was closed
         if (localStorage.getItem("refresh_token") != null)
         {
             refreshAccessToken();
@@ -290,20 +299,20 @@ function nextSong()
     //format the correct answer
     document.querySelector("#titleAns").innerHTML = "Title: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
-    
+
     //hide all buttons essentially
     document.getElementById("submit").style.display = "none";
     document.getElementById("replay").style.display = "none";
     document.getElementById("next").style.display = "none";
-    
+
     //make submit button reaapear
     setTimeout(function()
     {
-        document.getElementById('play').style.display = 'block';
+        //show play button
         document.getElementById("submit").style.display = "block";
         document.getElementById("replay").style.display = "block";
         document.getElementById("next").style.display = "block";
-       
+        
     }, 2000);
 
     //set the input field to null values
@@ -351,6 +360,8 @@ function chooseSong()
     {
         prevSongs.shift();
     }
+    //console.log(prevSongs);
+    //console.log("Index chosen is " + index);
     return index;
 }
 // have to name it this way and idk if it actually matters too much 
@@ -374,7 +385,7 @@ function createPlayer(id, start)
             videoId: id,
             playerVars: 
             {
-                //disable full scrren
+                //no full scrren
                 'fs' : 0,
                 'controls': 0,
                 'playsinline': 1,
@@ -409,18 +420,24 @@ function onPlayerReady(event)
     playVideo();
 }
 //if playing make the play button disappear and set timer for 10 seconds
-function onPlayerStateChange(event) {
-    if(event.data == YT.PlayerState.PLAYING)
+function onPlayerStateChange(event) 
+{
+    if (event.data == YT.PlayerState.PLAYING)
+    {
+        console.log("I'm Playing");
+    }
+    if(event.data == YT.PlayerState.PLAYING || event.data == YT.PlayerState.BUFFERING)
     {
        document.getElementById('play').style.display = 'none';
-       console.log("I'm Playing");
-       setTimeout(stopVideo, 10000);
     }
-}
-function stopVideo() 
-{
-    console.log("I have ended");
-    player.stopVideo();
+    else if (event.data == YT.PlayerState.CUED)
+    {
+        document.getElementById('play').style.display = 'block';
+    }
+    else if (event.data == YT.PlayerState.ENDED)
+    {
+        console.log("I have ended");
+    }
 }
 function replayVideo()
 { 
