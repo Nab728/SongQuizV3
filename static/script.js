@@ -136,7 +136,7 @@ function getCode()
 {
     let code = null;
     const queryString = window.location.search;
-    if ( queryString.length > 0 )
+    if (queryString.length > 0)
     {
         const urlParams = new URLSearchParams(queryString);
         code = urlParams.get('code')
@@ -231,21 +231,19 @@ function processRequest()
         isClientWorking = true;
         var response = JSON.parse(xhr.responseText);
         var result = response["tracks"]["items"];
-        console.log(result);
         var index = pickCorrectTrack(result);
         title  = formatString(result[index]["name"]);
         artist = formatString(result[index]["artists"][0]["name"]);
     }
     else if (xhr.status == 401)
     {
-        alert("access token has expired. Returning to home page.");
-        
         if (client_id != "" && client_secret != "" && refresh_token != "" && refresh_token != undefined)
         {
             refreshAccessToken();
         }
         else
-        {
+        { 
+            alert("access token has expired. Returning to home page.");
             //redirect user to homescreen
             document.getElementById("gamePage").style.display = 'none';
             document.getElementById("startPage").style.display = 'flex';
@@ -276,11 +274,12 @@ function nextSong()
     //show player turn
     playerOneTurn = !playerOneTurn;
     let turn = checkTurn();
+    
     //display score
     document.querySelector(".turn").innerHTML = "Player " + turn + " Turn"; 
     document.querySelector(".score").innerHTML = "Player 1: " + p1Score + "&nbsp&nbsp" + "Player 2: " + p2Score;
     
-    //format the correct answer
+    //show the correct answer 
     document.querySelector("#titleAns").innerHTML = "Answer: " + title.trim();
     document.querySelector("#artistAns").innerHTML = "Artist: " + artist.trim();
 
