@@ -31,7 +31,7 @@ var player;
 var isWorking = false;
 
 //url change to your domain of the website
-var redirect_uri = "http://127.0.0.1:5501/SongQuizV3/templates/index.html"; //switch to the html page you are 
+var redirect_uri = "nab728.github.io/songquizv3/"; //switch to the html page you are 
 //client criendentals from spotify api
 var client_id;
 var client_secret;
