@@ -5366,50 +5366,50 @@
         }
       },
       {
-        "kind": "youtube#playlistItem",
-        "etag": "tAa13EEJZC0yYW8yj37M5nC0zO0",
-        "id": "UEwtdThpa3psN0JMZ0ZxZFJ2dzJBMV95M0lRYVNrREpOOS4wMDkwRkI3NzExODA2MTFG",
-        "snippet": {
-          "publishedAt": "2022-09-06T00:11:17Z",
-          "channelId": "UC0SCIcU3wYxcTjn9UnCBNrQ",
-          "title": "Logan Paul - Help Me Help You [Official Video]",
-          "description": "Get \"Help Me Help You\" on iTunes: http://bit.ly/LoganPaulHelpMeHelpYou\nAND Spotify: http://open.spotify.com/album/6tAaN8nP7vPsSyGyKakIVf\nStarring Shay Mitchell:\nhttps://www.YouTube.com/ShayMitchell\n\nADD ME ON:\nINSTAGRAM: https://www.instagram.com/LoganPaul/\nTWITTER: https://twitter.com/LoganPaul\n\nGet the \"Favorite Hoodie\" ► https://ShopLoganPaul.com/\nSUBSCRIBE FOR DAILY VLOGS! ► http://bit.ly/Subscribe2Logan\n\nWhy Don't We's Channel:\nhttps://www.YouTube.com/WhyDontWeMusic",
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/pT20g6lTZ-k/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/pT20g6lTZ-k/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/pT20g6lTZ-k/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            },
-            "standard": {
-              "url": "https://i.ytimg.com/vi/pT20g6lTZ-k/sddefault.jpg",
-              "width": 640,
-              "height": 480
-            },
-            "maxres": {
-              "url": "https://i.ytimg.com/vi/pT20g6lTZ-k/maxresdefault.jpg",
-              "width": 1280,
-              "height": 720
-            }
+      "kind": "youtube#playlistItem",
+      "etag": "UTxM3OlCKPCsfIb8m6QMiOsv4tw",
+      "id": "UEwtdThpa3psN0JMZ0ZxZFJ2dzJBMV95M0lRYVNrREpOOS44M0Q5MzQ0QTcwQzFDMjc5",
+      "snippet": {
+        "publishedAt": "2022-09-06T01:33:04Z",
+        "channelId": "UC0SCIcU3wYxcTjn9UnCBNrQ",
+        "title": "Olivia Rodrigo - drivers license (Clean - Lyrics)",
+        "description": "🎵 Olivia Rodrigo - drivers license (Clean - Lyrics)\n⬇️ https://smarturl.it/driverslicense\n\nCheck out the super clean version here: https://bit.ly/2XySQH3\n\n⚡TrendingTracks, your home for the hottest tracks!⚡\n\n-----------------------------------------------\n\n🧡Support the artist🧡\n\n👉Follow Olivia Rodrigo:\nInstagram: https://instagram.com/olivia.rodrigo\nTwitter: https://twitter.com/Olivia_Rodrigo\nFacebook: https://www.facebook.com/OliviaRodrig...\n\n👉 Get social! Follow TrendingTracks online:\n➤Subscribe: https://www.youtube.com/c/trendingtra...\n➤Twitter: https://twitter.com/Tracks_Trending?s=17\n➤Spotify: https://spoti.fi/2lXiUfL\n➤Discord: https://discord.gg/mvmRPVx\n\n©️ The audio in this video was used with permission from the relative rights holder(s). If you would like to use the song for your video, please contact the label/producers directly. For any business enquiries, contact lukeseymour97@hotmail.com.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ZYpwyJAAuEY/default.jpg",
+            "width": 120,
+            "height": 90
           },
-          "channelTitle": "BlazinFir3",
-          "playlistId": "PL-u8ikzl7BLgFqdRvw2A1_y3IQaSkDJN9",
-          "position": 116,
-          "resourceId": {
-            "kind": "youtube#video",
-            "videoId": "pT20g6lTZ-k"
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ZYpwyJAAuEY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
           },
-          "videoOwnerChannelTitle": "TheOfficialLoganPaul",
-          "videoOwnerChannelId": "UCbwMZHCMpBiOWfYLBOH-9Qw"
+          "high": {
+            "url": "https://i.ytimg.com/vi/ZYpwyJAAuEY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ZYpwyJAAuEY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ZYpwyJAAuEY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "BlazinFir3",
+        "playlistId": "PL-u8ikzl7BLgFqdRvw2A1_y3IQaSkDJN9",
+        "position": 116,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ZYpwyJAAuEY"
+        },
+        "videoOwnerChannelTitle": "TrendingTracks",
+        "videoOwnerChannelId": "UC1S3EiYLDrrVc3Ev9rdUE6A"
         }
       },
       {
