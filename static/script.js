@@ -1,4 +1,4 @@
-//other variables needed
+
 //songs is the variable to hode the json data
 let songs;
 let songIndex = 0;
@@ -398,7 +398,7 @@ function createPlayer(id, start)
         {
             height: 0,
             width: 0,
-            videoId: "T3vL80GTbQ0",
+            videoId: id,
             playerVars: 
             {
                 //no full scrren
