@@ -1,3 +1,4 @@
+//other variables needed
 //songs is the variable to hode the json data
 let songs;
 let songIndex = 0;
@@ -224,7 +225,21 @@ function findRightArtist(list, title)
            return orgName;
         }
     }
-    return list[0]["artists"][0]["name"];
+    return list[1]["artists"][0]["name"];
+}
+function findRightTitle(list, title)
+{
+    for (let i = 0; i < list.length; i++)
+    {
+        //songs have mutlipe aritsts sometimes but we want the first result
+        let orgTitle = list[i]["name"];
+        let newTitle = orgTitle.toLowerCase().trim();
+        if (title.toLowerCase().trim().includes(newTitle))
+        { 
+           return orgTitle;
+        }
+    }
+    return list[1]["name"];
 }
 function processRequest() 
 {  
@@ -235,13 +250,15 @@ function processRequest()
         isClientWorking = true;
         var response = JSON.parse(xhr.responseText);
         var result = response["tracks"]["items"];
+        var ytTitle = songs[songIndex].snippet.title;
         //select the first result (I've tested the most popular result and sometimes it failed also the first result failed)
         //ex: Blinding Lights (doesn't work with the most popular result) and Bad Blood (doesn't work with first result) from the youtube playlist
-        let rightArtist = findRightArtist(result, songs[songIndex].snippet.title);
+        let rightArtist = findRightArtist(result, ytTitle);
         //for the most part the title is always correct but the artist isn't 
         //so by using findRightArtist it results in sometimes mismatched picking of what item to choose for each answer.
         //first answer seems to always be the album name
-        title  = formatString(result[1]["name"]);
+        let rightTitle = findRightTitle(result, ytTitle);
+        title  = formatString(rightTitle);
         artist = formatString(rightArtist); 
     }
     else if (xhr.status == 401)
@@ -273,8 +290,8 @@ function formatString(s)
         //turns accent mark letters to regular latin characters
         //normalize turns accent marks to latin characters in unicode and replace removes the diacritic marks
         s = s.normalize("NFD").replace(/\p{Diacritic}/gu, "");
-        //removes any non letter character (other than '(There's) and !(P!nk)and + (Ariande Grande 34+35)) and anything in between parentheses
-        s = s.replace(/(\[[^\]]*])|(\([^)]*\))|([^a-zA-Z0-9'!+$ ])/g, "").trim();
+        //removes any non letter character (other than '(There's) and !(P!nk removed !)and + (Ariande Grande 34+35)) and anything in between parentheses
+        s = s.replace(/(\[[^\]]*])|(\([^)]*\))|([^a-zA-Z0-9'+$ ])/g, "").trim();
         //removes multiple spaces or tabs
         s = s.replace(/\s\s+/g, ' ');
     }
@@ -337,6 +354,7 @@ function startSongPlayer()
 { 
     songIndex = chooseSong();
     let title = songs[songIndex].snippet.title;
+    title = "Rebecca Black - Friday";
     checkTitle(title);
     //0 to length of the song - 20 seconds (so we don't play the end of the song)
     start = Math.floor(Math.random() * (150 - 20 + 1)) + 20;
@@ -380,7 +398,7 @@ function createPlayer(id, start)
         {
             height: 0,
             width: 0,
-            videoId: id,
+            videoId: "T3vL80GTbQ0",
             playerVars: 
             {
                 //no full scrren
