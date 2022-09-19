@@ -354,7 +354,6 @@ function startSongPlayer()
 { 
     songIndex = chooseSong();
     let title = songs[songIndex].snippet.title;
-    title = "Rebecca Black - Friday";
     checkTitle(title);
     //0 to length of the song - 20 seconds (so we don't play the end of the song)
     start = Math.floor(Math.random() * (150 - 20 + 1)) + 20;
